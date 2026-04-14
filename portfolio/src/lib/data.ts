@@ -107,7 +107,7 @@ export const projects = [
     ],
     color: "accent",
     featured: true,
-    link: "https://app.powerbi.com/view?r=eyJrgit remote add origin https://github.com/adityatrip26/port.gitIjoiNDQ0MDU2Y2QtOWUyOC00OTVhLWJiMzMtZWZhOGY2MjM4YzdkIiwidCI6ImM2ZTU0OWIzLTVmNDUtNDAzMi1hYWU5LWQ0MjQ0ZGM1YjJjNCJ9",
+    link: "https://app.powerbi.com/view?r=eyJrIjoiNDQ0MDU2Y2QtOWUyOC00OTVhLWJiMzMtZWZhOGY2MjM4YzdkIiwidCI6ImM2ZTU0OWIzLTVmNDUtNDAzMi1hYWU5LWQ0MjQ0ZGM1YjJjNCJ9",
     github: "https://github.com/Adityatrip26",
   },
   {
