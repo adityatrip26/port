@@ -4,7 +4,6 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { FolderKanban, Database, LayoutDashboard, Zap } from "lucide-react";
 import { stats, personalInfo } from "@/lib/data";
-import { cn } from "@/lib/utils";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   FolderKanban,

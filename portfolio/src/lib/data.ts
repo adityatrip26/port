@@ -223,7 +223,16 @@ export const projects = [
   },
 ];
 
-export const education = [
+export type Education = {
+  degree: string;
+  institution: string;
+  location: string;
+  year: string;
+  type: "education" | "work";
+  icon: string;
+};
+
+export const education: Education[] = [
   {
     degree: "B.Tech in Electronics and Communication Engineering",
     institution: "Lakshmi Narain College of Technology",
@@ -234,7 +243,17 @@ export const education = [
   },
 ];
 
-export const certifications = [
+export type Certification = {
+  title: string;
+  issuer: string;
+  year: string;
+  credentialId: string;
+  icon: string;
+  color: string;
+  description: string;
+};
+
+export const certifications: Certification[] = [
   {
     title: "Excel: Mother of Business Intelligence",
     issuer: "Codebasics",
@@ -257,7 +276,13 @@ export const certifications = [
   },
 ];
 
-export const stats = [
+export type Stat = {
+  label: string;
+  value: string;
+  icon: string;
+};
+
+export const stats: Stat[] = [
   { label: "Projects Completed", value: "7+", icon: "FolderKanban" },
   { label: "Data Points Processed", value: "60K+", icon: "Database" },
   { label: "Dashboards Built", value: "10+", icon: "LayoutDashboard" },

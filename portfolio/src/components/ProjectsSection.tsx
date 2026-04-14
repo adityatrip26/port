@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { ExternalLink, ChevronDown, ChevronUp, Tag } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { projects } from "@/lib/data";
 import { cn } from "@/lib/utils";
 

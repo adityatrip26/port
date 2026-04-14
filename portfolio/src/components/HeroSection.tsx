@@ -36,8 +36,10 @@ function TypewriterText() {
         setCharIdx((i) => i - 1);
       }, 35);
     } else if (deleting && charIdx === 0) {
-      setDeleting(false);
-      setTaglineIdx((i) => (i + 1) % TAGLINES.length);
+      timeout.current = setTimeout(() => {
+        setDeleting(false);
+        setTaglineIdx((i) => (i + 1) % TAGLINES.length);
+      }, 100);
     }
 
     return () => {

@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { FileSpreadsheet, ShieldCheck, Award, ExternalLink } from "lucide-react";
+import { FileSpreadsheet, ShieldCheck, Award } from "lucide-react";
 import { certifications } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
