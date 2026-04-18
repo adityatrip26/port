@@ -21,6 +21,7 @@ const GithubIcon = (props: React.ComponentProps<"svg">) => (
     <path d="M9 18c-4.51 2-5-2-7-2" />
   </svg>
 );
+
 import { projects } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
@@ -63,6 +64,8 @@ const colorMap: Record<string, { badge: string; metric: string; tag: string; bor
   },
 };
 
+type TabType = "highlights" | "caseStudy";
+
 function ProjectCard({
   project,
   index,
@@ -71,9 +74,12 @@ function ProjectCard({
   index: number;
 }) {
   const [expanded, setExpanded] = useState(false);
+  const [activeTab, setActiveTab] = useState<TabType>("highlights");
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
   const c = colorMap[project.color] || colorMap.primary;
+
+  const hasCaseStudy = !!(project as any).caseStudy;
 
   return (
     <motion.div
@@ -105,8 +111,7 @@ function ProjectCard({
               {project.title}
             </h3>
             <div className="flex items-center gap-1.5 flex-shrink-0">
-              {/* @ts-ignore */}
-              {project.github && (
+              {(project as any).github && (
                 <a
                   href={(project as any).github}
                   target="_blank"
@@ -117,8 +122,7 @@ function ProjectCard({
                   <GithubIcon className="w-4 h-4" />
                 </a>
               )}
-              {/* @ts-ignore */}
-              {project.link && (
+              {(project as any).link && (
                 <a
                   href={(project as any).link}
                   target="_blank"
@@ -156,48 +160,113 @@ function ProjectCard({
         {project.tools.map((tool) => (
           <span
             key={tool}
-            className={cn(
-              "px-2.5 py-1 rounded-lg text-xs font-medium",
-              c.tag
-            )}
+            className={cn("px-2.5 py-1 rounded-lg text-xs font-medium", c.tag)}
           >
             {tool}
           </span>
         ))}
       </div>
 
-      {/* Expandable Highlights */}
+      {/* Toggle Button */}
       <button
         onClick={() => setExpanded((v) => !v)}
         className="flex items-center gap-1.5 text-xs text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] transition-colors"
       >
         {expanded ? (
           <>
-            <ChevronUp className="w-3.5 h-3.5" /> Hide highlights
+            <ChevronUp className="w-3.5 h-3.5" /> Hide details
           </>
         ) : (
           <>
-            <ChevronDown className="w-3.5 h-3.5" /> Show highlights
+            <ChevronDown className="w-3.5 h-3.5" /> Show details
           </>
         )}
       </button>
 
+      {/* Expanded Panel */}
       <AnimatePresence>
         {expanded && (
-          <motion.ul
+          <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="overflow-hidden space-y-1.5"
+            className="overflow-hidden"
           >
-            {project.highlights.map((h, i) => (
-              <li key={i} className="flex items-start gap-2 text-xs text-[hsl(var(--muted-foreground))]">
-                <span className={cn("mt-1 w-1.5 h-1.5 rounded-full flex-shrink-0", c.metric.replace("text-", "bg-"))} />
-                {h}
-              </li>
-            ))}
-          </motion.ul>
+            {/* Tab switcher — only show if caseStudy exists */}
+            {hasCaseStudy && (
+              <div className="flex gap-1 mb-4 p-1 rounded-lg bg-[hsl(var(--muted)/0.2)] border border-[hsl(var(--border)/0.5)]">
+                <button
+                  onClick={() => setActiveTab("highlights")}
+                  className={cn(
+                    "flex-1 text-xs py-1.5 rounded-md font-medium transition-all",
+                    activeTab === "highlights"
+                      ? cn("bg-[hsl(var(--muted)/0.6)] text-[hsl(var(--foreground))]")
+                      : "text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"
+                  )}
+                >
+                  Highlights
+                </button>
+                <button
+                  onClick={() => setActiveTab("caseStudy")}
+                  className={cn(
+                    "flex-1 text-xs py-1.5 rounded-md font-medium transition-all",
+                    activeTab === "caseStudy"
+                      ? cn("bg-[hsl(var(--muted)/0.6)] text-[hsl(var(--foreground))]")
+                      : "text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"
+                  )}
+                >
+                  Case Study
+                </button>
+              </div>
+            )}
+
+            {/* Highlights Tab */}
+            {(!hasCaseStudy || activeTab === "highlights") && (
+              <ul className="space-y-1.5">
+                {project.highlights.map((h, i) => (
+                  <li
+                    key={i}
+                    className="flex items-start gap-2 text-xs text-[hsl(var(--muted-foreground))]"
+                  >
+                    <span
+                      className={cn(
+                        "mt-1 w-1.5 h-1.5 rounded-full flex-shrink-0",
+                        c.metric.replace("text-", "bg-")
+                      )}
+                    />
+                    {h}
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {/* Case Study Tab */}
+            {hasCaseStudy && activeTab === "caseStudy" && (
+              <div className="space-y-3">
+                {[
+                  { label: "Problem", key: "problem" },
+                  { label: "Approach", key: "approach" },
+                  { label: "Tech", key: "tech" },
+                  { label: "Result", key: "result" },
+                ].map(({ label, key }) => (
+                  <div key={key}>
+                    <span
+                      className={cn(
+                        "text-[10px] font-semibold uppercase tracking-widest block mb-1",
+                        c.metric
+                      )}
+                    >
+                      {label}
+                    </span>
+                    <p className="text-xs text-[hsl(var(--muted-foreground))] leading-relaxed">
+                      {(project as any).caseStudy[key]}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </motion.div>
         )}
       </AnimatePresence>
     </motion.div>
