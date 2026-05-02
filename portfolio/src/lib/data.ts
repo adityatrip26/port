@@ -125,8 +125,8 @@ export const projects = [
     },
     color: "accent",
     featured: true,
-    link: "https://app.powerbi.com/view?r=eyJrIjoiNDQ0MDU2Y2QtOWUyOC00OTVhLWJiMzMtZWZhOGY2MjM4YzdkIiwidCI6ImM2ZTU0OWIzLTVmNDUtNDAzMi1hYWU5LWQ0MjQ0ZGM1YjJjNCJ9",
-    github: "https://github.com/Adityatrip26",
+    link: "https://app.powerbi.com/view?r=eyJrIjoiMWM1ZDJhY2UtYjA5Yy00NGI1LWEwYjctMWZlNzUxYWFjNGJlIiwidCI6ImM2ZTU0OWIzLTVmNDUtNDAzMi1hYWU5LWQ0MjQ0ZGM1YjJjNCJ9",
+    github: "https://github.com/adityatrip26/business-insights-360-veloxis",
   },
   {
     id: 3,
